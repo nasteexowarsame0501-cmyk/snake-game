@@ -2,5 +2,24 @@ body {
     background-color: darkblue;
     font-family: Arial, sans-serif;
 
-    
+    gameCanvas{
+        position: middle;
+        width: 400px;
+        height: 400px;
+    }
+
+    button {
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    borderbox {
+        border: 1px solid black;
+        padding: 100px;
+        margin: 100px;
+    }
 }
