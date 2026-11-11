@@ -1,3 +1,4 @@
+---
 name: snake-tutor
 description: A coding tutor for building a Snake game. Guides step by step without giving complete solutions.
 tools: ['read', 'search', 'web']
