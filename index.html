@@ -11,34 +11,23 @@
     </style>
 </head>
 <body>
+    <link rel="stylesheet" href="style.css">
 
     <h1>Snake Game</h1>
-
-    // Start screen with a welcome message and a start button
-    <div id="startScreen">
         <p>Welcome to the Snake Game!</p>
         <button> START </button>
-    </div>
 
-
-    //end screen with a game over message and a restart button
-    <div id="endScreen">
-        <p>Game Over!</p>
-        <button> RESTART </button>
-    </div>
 
     <canvas id="gameCanvas" width="400" height="400"></canvas>
     <p id="info"></p>
 
 
-    <link rel="stylesheet" href="style.css">
-
       <button> PAUSE </button>
       <button> RESUME </button>
- 
+      <button> RESTART </button>
       <p id="Score">Score: 0</p>
-
-
+   
+    
 
       <script>
         const startButton = document.querySelector("button:nth-of-type(1)");
@@ -145,16 +134,18 @@
       //snake movemens with food and update score
         const moveSnakeWithFood = () => {
             const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+            const willEatFood = head.x === food.x && head.y === food.y;
+            const bodyToCheck = willEatFood ? snake : snake.slice(0, -1);
 
-            if(checkGameOver(head) || checkHitSelf(head)) {
+            if(checkGameOver(head) || checkHitSelf(head, bodyToCheck)) {
                 return;
             }
 
             snake.unshift(head);
 
-            if (head.x === food.x && head.y === food.y) {
+            if (willEatFood) {
                 score++;
-                alert("Score: " + score);
+                document.getElementById("Score").textContent = "Score: " + score;
                 safePlaceFood();
             } else {
                 snake.pop();
@@ -200,8 +191,8 @@
         }
 
         //if snake hits itself = ends the game
-          const checkHitSelf = (head) => {
-            const hitSelf = snake.some(segment => segment.x === head.x && segment.y === head.y);
+          const checkHitSelf = (head, body = snake) => {
+            const hitSelf = body.some(segment => segment.x === head.x && segment.y === head.y);
             if (hitSelf) {
                 clearInterval(gameInterval);
                 alert("Game Over! Your score: " + score);
