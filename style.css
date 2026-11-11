@@ -17,14 +17,4 @@ body {
         cursor: pointer;
     }
 
-    Box{
-        width: 300px;
-        padding: 20px;
-        background-color: darkblue;
-        border: 1px solid black;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-
 }

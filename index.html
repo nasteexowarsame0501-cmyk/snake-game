@@ -13,17 +13,29 @@
 <body>
 
     <h1>Snake Game</h1>
+
+    // Start screen with a welcome message and a start button
+    <div id="startScreen">
+        <p>Welcome to the Snake Game!</p>
+        <button> START </button>
+    </div>
+
+
+    //end screen with a game over message and a restart button
+    <div id="endScreen">
+        <p>Game Over!</p>
+        <button> RESTART </button>
+    </div>
+
     <canvas id="gameCanvas" width="400" height="400"></canvas>
     <p id="info"></p>
 
 
     <link rel="stylesheet" href="style.css">
 
-
-      <button> START </button>
       <button> PAUSE </button>
       <button> RESUME </button>
-      <button> RESTART </button>
+ 
       <p id="Score">Score: 0</p>
 
 
