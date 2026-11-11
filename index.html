@@ -16,21 +16,30 @@
     <canvas id="gameCanvas" width="400" height="400"></canvas>
     <p id="info"></p>
 
+
+    <link rel="stylesheet" href="style.css">
+
+
       <button> START </button>
       <button> Pause</button>
       <button> Resume </button>
+      <buttobn> Restart </button>
+      <p id="Score">Score: 0</p>
+
 
 
       <script>
         const startButton = document.querySelector("button:nth-of-type(1)");
         const pauseButton = document.querySelector("button:nth-of-type(2)");
         const resumeButton = document.querySelector("button:nth-of-type(3)");
+        const restartButton = document.querySelector("button:nth-of-type(4)");
 
         let gameInterval;
+        const moveInterval = 110;
 
         startButton.addEventListener("click", () => {
             if (!gameInterval) {
-                gameInterval = setInterval(moveSnakeWithFood, 100);
+                gameInterval = setInterval(moveSnakeWithFood, moveInterval);
             }
         });
 
@@ -41,10 +50,26 @@
 
         resumeButton.addEventListener("click", () => {
             if (!gameInterval) {
-                gameInterval = setInterval(moveSnakeWithFood, 100);
+                gameInterval = setInterval(moveSnakeWithFood, moveInterval);
             }
         });
 
+        restartButton.addEventListener("click", () => {
+            clearInterval(gameInterval);
+            gameInterval = null;
+            snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 }
+            ];
+            direction = { x: 1, y: 0 };
+            score = 0;
+            document.getElementById("Score").textContent = "Score: " + score;
+            safePlaceFood();
+            drawGame();
+        });
+
+        
       </script>
 
 
@@ -117,7 +142,7 @@
 
             if (head.x === food.x && head.y === food.y) {
                 score++;
-                document.getElementById("info").textContent = `Score: ${score}`;
+                alert("Score: " + score);
                 safePlaceFood();
             } else {
                 snake.pop();
@@ -155,8 +180,8 @@
         const checkGameOver = (head) => {
             const hitWall = head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount;
             if (hitWall) {
+                clearInterval(gameInterval);
                 alert("Game Over! Your score: " + score);
-                document.location.reload();
                 return true;
             }
             return false;
@@ -166,12 +191,13 @@
           const checkHitSelf = (head) => {
             const hitSelf = snake.some(segment => segment.x === head.x && segment.y === head.y);
             if (hitSelf) {
+                clearInterval(gameInterval);
                 alert("Game Over! Your score: " + score);
-                document.location.reload();
                 return true;
-        } return false;
-
             } 
+        
+            return false;
+        }; 
                 
 
 
@@ -185,7 +211,6 @@
 
         drawGame();
         safePlaceFood();
-        setInterval(moveSnakeWithFood, 100);
         
 
     </script>
